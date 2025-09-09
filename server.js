@@ -3,11 +3,13 @@ const https = require('https');
 const express = require('express');
 const path = require('path');
 
-const app = express();
-app.use(express.json());
 const events = [];
 
-app.post('/api/events', (req, res) => {
+// --- Secure API (certificate required) ---
+const secureApp = express();
+secureApp.use(express.json());
+
+secureApp.post('/api/events', (req, res) => {
   const { application, event } = req.body;
   if (!application || !event) {
     return res.status(400).send('Missing application or event');
@@ -16,11 +18,9 @@ app.post('/api/events', (req, res) => {
   res.status(204).end();
 });
 
-app.get('/api/events', (req, res) => {
+secureApp.get('/api/events', (req, res) => {
   res.json(events);
 });
-
-app.use(express.static(path.join(__dirname, 'public')));
 
 const options = {
   key: fs.readFileSync(path.join(__dirname, 'certs/server-key.pem')),
@@ -30,6 +30,17 @@ const options = {
   rejectUnauthorized: true
 };
 
-https.createServer(options, app).listen(8443, () => {
-  console.log('Analytics server listening on https://localhost:8443');
+https.createServer(options, secureApp).listen(8443, () => {
+  console.log('Analytics API listening on https://localhost:8443');
+});
+
+// --- Public dashboard (no certificate required) ---
+const publicApp = express();
+publicApp.get('/api/events', (req, res) => {
+  res.json(events);
+});
+publicApp.use(express.static(path.join(__dirname, 'public')));
+
+publicApp.listen(8080, () => {
+  console.log('Dashboard available at http://localhost:8080');
 });
