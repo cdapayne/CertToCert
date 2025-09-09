@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Create Report</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="dashboard.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Create Report</h1>
+    <a href="index.html">Back</a>
+  </header>
+  <form id="reportForm">
+    <label>Title
+      <input type="text" id="title" required />
+    </label>
+    <label>Group By
+      <select id="group">
+        <option value="application">Application</option>
+        <option value="event">Event</option>
+      </select>
+    </label>
+    <label>Chart Type
+      <select id="chartType">
+        <option value="bar">Bar</option>
+        <option value="line">Line</option>
+        <option value="pie">Pie</option>
+        <option value="doughnut">Doughnut</option>
+        <option value="radar">Radar</option>
+        <option value="polarArea">Polar Area</option>
+      </select>
+    </label>
+    <button type="submit">Add to Dashboard</button>
+  </form>
+  <div id="previewContainer">
+    <canvas id="preview"></canvas>
+  </div>
+  <script>
+  (async () => {
+    const {getCards, saveCards, fetchEvents, groupData, COLORS} = window.dashboardUtils;
+    const events = await fetchEvents();
+    const form = document.getElementById('reportForm');
+    const previewCanvas = document.getElementById('preview');
+    let previewChart;
+
+    function renderPreview(){
+      const group = document.getElementById('group').value;
+      const chartType = document.getElementById('chartType').value;
+      const grouped = groupData(events, group);
+      if(previewChart){ previewChart.destroy(); }
+      previewChart = new Chart(previewCanvas, {
+        type: chartType,
+        data: {
+          labels: grouped.labels,
+          datasets: [{
+            label: group,
+            data: grouped.data,
+            backgroundColor: COLORS,
+            borderColor: COLORS,
+            fill: chartType !== 'line'
+          }]
+        },
+        options: { responsive:true, maintainAspectRatio:false }
+      });
+    }
+
+    form.addEventListener('change', renderPreview);
+    renderPreview();
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const title = document.getElementById('title').value.trim() || 'Chart';
+      const group = document.getElementById('group').value;
+      const chartType = document.getElementById('chartType').value;
+      const cards = getCards();
+      if(cards.length >= 20){
+        alert('Maximum of 20 cards reached');
+        return;
+      }
+      cards.push({ id: Date.now(), title, groupBy: group, chartType });
+      saveCards(cards);
+      window.location.href = 'index.html';
+    });
+  })();
+  </script>
+</body>
+</html>

@@ -3,41 +3,78 @@
 <head>
   <meta charset="utf-8" />
   <title>Analytics Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="dashboard.js"></script>
 </head>
 <body>
-  <h1>Analytics Dashboard</h1>
-  <canvas id="eventChart" width="400" height="200"></canvas>
-  <table border="1" id="eventTable">
-    <thead>
-      <tr><th>Application</th><th>Event</th><th>Timestamp</th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  <header>
+    <h1>Analytics Dashboard</h1>
+    <a href="reports.html">Add Card</a>
+  </header>
+  <div id="dashboard" class="dashboard"></div>
   <script>
-    async function loadEvents(){
-      const res = await fetch('/api/events');
-      const events = await res.json();
-      const counts = {};
-      events.forEach(e => {
-        const key = e.application + ':' + e.event;
-        counts[key] = (counts[key]||0)+1;
-      });
-      const labels = Object.keys(counts);
-      const data = Object.values(counts);
-      new Chart(document.getElementById('eventChart'), {
-        type:'bar',
-        data:{ labels, datasets:[{ label:'Events', data }] }
-      });
-      const tbody=document.querySelector('#eventTable tbody');
-      tbody.innerHTML='';
-      events.forEach(e=>{
-        const tr=document.createElement('tr');
-        tr.innerHTML = `<td>${e.application}</td><td>${e.event}</td><td>${e.timestamp}</td>`;
-        tbody.appendChild(tr);
+  (async () => {
+    const {getCards, saveCards, fetchEvents, groupData, COLORS} = window.dashboardUtils;
+    const events = await fetchEvents();
+    const dashboardEl = document.getElementById('dashboard');
+
+    function removeCard(id){
+      const cards = getCards().filter(c => c.id !== id);
+      saveCards(cards);
+      render();
+    }
+
+    function render(){
+      dashboardEl.innerHTML = '';
+      const cards = getCards();
+      cards.forEach(card => {
+        const cardEl = document.createElement('div');
+        cardEl.className = 'card';
+        cardEl.dataset.id = card.id;
+        const title = document.createElement('h3');
+        title.textContent = card.title;
+        const canvas = document.createElement('canvas');
+        canvas.height = 250;
+        const btn = document.createElement('button');
+        btn.className = 'remove';
+        btn.textContent = '\u00d7';
+        btn.onclick = () => removeCard(card.id);
+        cardEl.appendChild(title);
+        cardEl.appendChild(canvas);
+        cardEl.appendChild(btn);
+        dashboardEl.appendChild(cardEl);
+        const grouped = groupData(events, card.groupBy);
+        const colors = COLORS;
+        new Chart(canvas, {
+          type: card.chartType,
+          data: {
+            labels: grouped.labels,
+            datasets: [{
+              label: card.title,
+              data: grouped.data,
+              backgroundColor: colors,
+              borderColor: colors,
+              fill: card.chartType !== 'line'
+            }]
+          },
+          options: { responsive: true, maintainAspectRatio: false }
+        });
       });
     }
-    loadEvents();
+
+    render();
+
+    Sortable.create(dashboardEl, {
+      animation:150,
+      onEnd: () => {
+        const order = Array.from(document.querySelectorAll('.card')).map(c => +c.dataset.id);
+        const cards = getCards().sort((a,b) => order.indexOf(a.id) - order.indexOf(b.id));
+        saveCards(cards);
+      }
+    });
+  })();
   </script>
 </body>
 </html>
