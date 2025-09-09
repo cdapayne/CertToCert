@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Send Test Event</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Send Test Event</h1>
+    <a href="index.html">Back</a>
+  </header>
+  <form id="eventForm">
+    <label>Application
+      <input type="text" id="application" required />
+    </label>
+    <label>Event
+      <input type="text" id="event" required />
+    </label>
+    <button type="submit">Send Event</button>
+  </form>
+  <div id="status"></div>
+  <script>
+    document.getElementById('eventForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const application = document.getElementById('application').value.trim();
+      const event = document.getElementById('event').value.trim();
+      const statusEl = document.getElementById('status');
+      statusEl.textContent = '';
+      try {
+        const res = await fetch('/api/events', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ application, event })
+        });
+        statusEl.textContent = res.ok ? 'Event sent' : `Error: ${res.status}`;
+      } catch (err) {
+        statusEl.textContent = 'Error sending event';
+      }
+    });
+  </script>
+</body>
+</html>
