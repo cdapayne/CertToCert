@@ -1,0 +1,19 @@
+PLACEHOLDER: Screenshot showing client sending events
+
+Expected content:
+=================
+$ npm run client
+
+> certtocert@1.0.0 client
+> node client.js
+
+Event sent with status 204
+
+[Terminal showing successful event transmission]
+
+Alternative view - Multiple events:
+$ node -e "const {recordEvent} = require('./client.js'); ..."
+Event sent with status 204
+Event sent with status 204
+Event sent with status 204
+✓ All events sent successfully

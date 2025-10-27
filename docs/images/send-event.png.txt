@@ -1,0 +1,25 @@
+PLACEHOLDER: Screenshot of Send Test Event page
+
+Expected content:
+=================
+Browser window showing:
+
+┌────────────────────────────────────────────────────────────┐
+│ Send Test Event                                    [Back]   │
+├────────────────────────────────────────────────────────────┤
+│                                                            │
+│  ┌────────────────────────────────────────┐               │
+│  │ Application                             │               │
+│  │ [web-app___________________]           │               │
+│  │                                         │               │
+│  │ Event                                   │               │
+│  │ [button_click______________]           │               │
+│  │                                         │               │
+│  │ [Send Event]                            │               │
+│  │                                         │               │
+│  │ ✓ Event sent                           │               │
+│  └────────────────────────────────────────┘               │
+│                                                            │
+└────────────────────────────────────────────────────────────┘
+
+[Simple form with two input fields and a submit button]
