@@ -1,0 +1,24 @@
+PLACEHOLDER: Screenshot showing certificate generation
+
+Expected content:
+=================
+$ bash scripts/generate-certs.sh
+
+Generating RSA private key, 2048 bit long modulus
+.....................+++
+................+++
+e is 65537 (0x10001)
+Certificate request self-signature ok
+subject=CN = CertToCert CA
+Generating RSA private key, 2048 bit long modulus
+...+++
+........+++
+e is 65537 (0x10001)
+Certificate request self-signature ok
+subject=CN = localhost
+Certificate request self-signature ok
+subject=CN = client
+
+✓ Certificates generated successfully!
+
+[Terminal showing OpenSSL output with generated certificate files listed]

@@ -1,0 +1,26 @@
+PLACEHOLDER: Screenshot of main analytics dashboard
+
+Expected content:
+=================
+Browser window showing:
+
+┌────────────────────────────────────────────────────────────┐
+│ Analytics Dashboard                [Add Card] [Send Event] │
+├────────────────────────────────────────────────────────────┤
+│  ┌──────────────────┐  ┌──────────────────┐              │
+│  │ Events by App  ×│  │ Events by Type ×│              │
+│  │                  │  │                  │              │
+│  │  [Bar Chart]     │  │  [Pie Chart]     │              │
+│  │  📊             │  │  🥧               │              │
+│  │  web-app: 5      │  │  page_view: 3    │              │
+│  │  mobile-app: 4   │  │  button_click: 4 │              │
+│  │  desktop-app: 2  │  │  app_start: 2    │              │
+│  └──────────────────┘  └──────────────────┘              │
+│  ┌──────────────────┐  ┌──────────────────┐              │
+│  │ Timeline       ×│  │ Distribution   ×│              │
+│  │  [Line Chart]    │  │  [Doughnut]      │              │
+│  │  📈             │  │  🍩               │              │
+│  └──────────────────┘  └──────────────────┘              │
+└────────────────────────────────────────────────────────────┘
+
+[Colorful gradient background with cards showing various chart types]

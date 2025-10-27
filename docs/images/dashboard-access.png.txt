@@ -1,0 +1,20 @@
+PLACEHOLDER: Screenshot showing browser certificate selection or dashboard access
+
+Expected content:
+=================
+Browser showing certificate selection dialog:
+┌─────────────────────────────────────────────────┐
+│ Select a certificate                             │
+├─────────────────────────────────────────────────┤
+│ The server https://localhost:8443 requires a    │
+│ certificate for authentication.                  │
+│                                                  │
+│ ○ client (Issued by: CertToCert CA)            │
+│   Valid from: 2025-10-27                        │
+│   Expires: 2035-10-25                           │
+│                                                  │
+│        [Cancel]  [Select Certificate]           │
+└─────────────────────────────────────────────────┘
+
+Or browser address bar showing:
+🔒 https://localhost:8443  (Secure connection with client certificate)

@@ -1,0 +1,12 @@
+PLACEHOLDER: Screenshot showing server startup
+
+Expected content:
+=================
+$ npm start
+
+> certtocert@1.0.0 start
+> node server.js
+
+Analytics server listening on https://localhost:8443
+
+[Terminal window with server running, showing the listening message]

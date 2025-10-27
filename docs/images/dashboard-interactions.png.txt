@@ -1,0 +1,26 @@
+PLACEHOLDER: Screenshot showing dashboard interactions
+
+Expected content:
+=================
+Annotated dashboard showing:
+
+┌────────────────────────────────────────────────────────────┐
+│ Analytics Dashboard                                         │
+├────────────────────────────────────────────────────────────┤
+│  ┌──────────────────┐  ┌──────────────────┐              │
+│  │ Card 1         ×│←─── Click × to remove card          │
+│  │      ↕          │  │ Card 2         ×│              │
+│  │  [Chart]        │  │  [Chart]        │              │
+│  └──────────────────┘  └──────────────────┘              │
+│       ↓                                                    │
+│  Drag to reorder                                          │
+│                                                            │
+│  ┌──────────────────┐  ┌──────────────────┐              │
+│  │ Card 3         ×│  │ Card 4         ×│              │
+│  │  [Chart]        │  │  [Chart]        │              │
+│  └──────────────────┘  └──────────────────┘              │
+│                                                            │
+│  [Cards auto-save layout to localStorage]                 │
+└────────────────────────────────────────────────────────────┘
+
+[Annotations showing drag-and-drop arrows and remove button highlights]
