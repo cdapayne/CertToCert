@@ -111,7 +111,7 @@ curl -v -X POST https://localhost:8443/api/events \
 > Content-Length: 51
 > 
 < HTTP/1.1 204 No Content
-< Date: Mon, 27 Oct 2025 20:00:00 GMT
+< Date: Tue, 15 Oct 2024 20:00:00 GMT
 < Connection: keep-alive
 ```
 
@@ -134,17 +134,17 @@ curl https://localhost:8443/api/events \
   {
     "application": "local-app",
     "event": "button_press",
-    "timestamp": "2025-10-27T20:36:53.704Z"
+    "timestamp": "2024-10-15T20:36:53.704Z"
   },
   {
     "application": "web-app",
     "event": "page_view",
-    "timestamp": "2025-10-27T20:37:12.123Z"
+    "timestamp": "2024-10-15T20:37:12.123Z"
   },
   {
     "application": "mobile-app",
     "event": "button_click",
-    "timestamp": "2025-10-27T20:37:15.456Z"
+    "timestamp": "2024-10-15T20:37:15.456Z"
   }
 ]
 ```
@@ -164,12 +164,12 @@ curl -s https://localhost:8443/api/events \
   {
     "application": "local-app",
     "event": "button_press",
-    "timestamp": "2025-10-27T20:36:53.704Z"
+    "timestamp": "2024-10-15T20:36:53.704Z"
   },
   {
     "application": "web-app",
     "event": "page_view",
-    "timestamp": "2025-10-27T20:37:12.123Z"
+    "timestamp": "2024-10-15T20:37:12.123Z"
   }
 ]
 ```
@@ -189,7 +189,7 @@ curl -s https://localhost:8443/api/events \
 {
   "application": "web-app",
   "event": "page_view",
-  "timestamp": "2025-10-27T20:37:12.123Z"
+  "timestamp": "2024-10-15T20:37:12.123Z"
 }
 ```
 
@@ -246,7 +246,7 @@ Content-Type: application/json
 **Response:**
 ```http
 HTTP/1.1 204 No Content
-Date: Mon, 27 Oct 2025 20:00:00 GMT
+Date: Tue, 15 Oct 2024 20:00:00 GMT
 ```
 
 ### Successful Event Retrieval
@@ -261,13 +261,13 @@ Host: localhost:8443
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/json
-Date: Mon, 27 Oct 2025 20:00:00 GMT
+Date: Tue, 15 Oct 2024 20:00:00 GMT
 
 [
   {
     "application": "my-app",
     "event": "user_signup",
-    "timestamp": "2025-10-27T20:00:00.123Z"
+    "timestamp": "2024-10-15T20:00:00.123Z"
   }
 ]
 ```
@@ -452,9 +452,9 @@ fetch('/api/events')
 ```
 Total events: 8
 Events: Array(8)
-  0: {application: "web-app", event: "page_view", timestamp: "2025-10-27T20:00:00.000Z"}
-  1: {application: "web-app", event: "button_click", timestamp: "2025-10-27T20:01:00.000Z"}
-  2: {application: "mobile-app", event: "app_start", timestamp: "2025-10-27T20:02:00.000Z"}
+  0: {application: "web-app", event: "page_view", timestamp: "2024-10-15T20:00:00.000Z"}
+  1: {application: "web-app", event: "button_click", timestamp: "2024-10-15T20:01:00.000Z"}
+  2: {application: "mobile-app", event: "app_start", timestamp: "2024-10-15T20:02:00.000Z"}
   ...
 ```
 
